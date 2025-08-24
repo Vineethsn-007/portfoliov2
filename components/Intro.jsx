@@ -26,7 +26,7 @@ function Intro() {
           rotationInterval={2000}
         />
       </span>
-      <p>
+      <p className="intro-text">
         I’m passionate about building innovative projects in IoT, AI/ML, and Web
         Development. Currently pursuing B.E. in CSE (IoT & Cybersecurity with
         Blockchain). Love solving real-world problems with tech 🚀

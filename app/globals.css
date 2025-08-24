@@ -10,10 +10,23 @@
   box-sizing: border-box;
 }
 
+.main {
+  background: #000000;
+  background-image: radial-gradient(ellipse 120% 80% at 70% 20%, rgba(255, 20, 147, 0.15), transparent 50%), radial-gradient(ellipse 100% 60% at 30% 10%, rgba(0, 255, 255, 0.12), transparent 60%), radial-gradient(ellipse 90% 70% at 50% 0%, rgba(138, 43, 226, 0.18), transparent 65%), radial-gradient(ellipse 110% 50% at 80% 30%, rgba(255, 215, 0, 0.08), transparent 40%);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+}
+
+
+
 .hero-section {
   max-width: 100vw;
   max-height: 100vh;
-  background-color: #121212;
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar {
@@ -23,8 +36,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  /* background-color: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(10px); */
+  position: relative;
+  z-index: 1000;
 }
 
 .logo {
@@ -36,6 +49,36 @@
   font-style: normal;
   position: relative;
   margin-left: 40px;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 5px;
+}
+
+.hamburger {
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.open:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .navitems {
@@ -56,7 +99,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
+
+
 
 .line {
   height: 0.5px;
@@ -71,16 +118,12 @@
   transform: scaleX(1);
 }
 
-.silk-canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
 
 .hero-content {
   display: flex;
   gap: 20px;
   position: relative;
+  min-height: calc(100vh - 80px);
 }
 
 .item:nth-child(1),
@@ -114,18 +157,25 @@
 .specs {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
 }
 
 .intro p {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 20px;
+  line-height: 1.6;
+  max-width: 90%;
+  width: auto;
 }
 
 .text-rotate {
   display: flex;
-  white-space: pre-wrap;
+  white-space: nowrap;
   position: relative;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
@@ -138,6 +188,12 @@
   margin-right: 10px;
   color: #FFFFFF;
   background-color: rgb(2, 84, 179);
+  border-radius: 8px;
+  flex-shrink: 0;
+  min-width: max-content;
+  overflow: hidden;
+  width: 200px;
+  text-align: center;
 }
 
 .text-rotate-sr-only {
@@ -171,30 +227,1052 @@
 }
 
 .terminal-demo {
-  top: 10px;
-  width: 600px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 60vw;
+  max-width: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-left: 200px;
   color: #FFFFFF;
-  margin-top: 100px;
+  padding: 20px;
+  margin-right: 20px;
 }
 
 .terminal-demo p {
   margin-bottom: 10px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Nata Sans", sans-serif;
   font-size: 20px;
-  font-weight: 200;
+  font-weight: 800;
+  text-align: center;
 }
 
-.terminal-demo .p-terminal {
-  width: 500px;
-  height: 500px;
+.terminal-demo .terminal-container {
+  width: 100%;
+  max-width: 800px;
   margin-top: 10px;
-  background-color: #000000;
-  padding: 10px;
-  color: darkgreen;
-  border-radius: 10px;
+}
+
+.terminal-demo .terminal-container .custom-terminal {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #2d3748;
+  color: #ffffff;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-header {
+  background-color: #4a5568;
+  border-bottom: 1px solid #718096;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-buttons {
+  display: flex;
+  gap: 6px;
+  margin-right: 16px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-button:hover {
+  transform: scale(1.1);
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-button.red {
+  background-color: #ff5f56;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-button.yellow {
+  background-color: #ffbd2e;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-button.green {
+  background-color: #27c93f;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-title {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-content {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #2d3748;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #718096 #2d3748;
+}
+
+/* Custom scrollbar styling for webkit browsers */
+.terminal-demo .terminal-container .custom-terminal .terminal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-content::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-content::-webkit-scrollbar-thumb {
+  background: #718096;
+  border-radius: 4px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-content::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-line {
+  margin-bottom: 8px;
+  word-wrap: break-word;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-line.command {
+  color: #e2e8f0;
+  font-weight: 500;
+  margin-bottom: 12px;
+  padding: 4px 0;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-line.output {
+  color: #e2e8f0;
+  margin-bottom: 4px;
+  padding: 1px 0;
+}
+
+/* Add spacing between command groups */
+.terminal-demo .terminal-container .custom-terminal .terminal-line.command+.terminal-line.output {
+  margin-top: 8px;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  min-height: 24px;
+  background: transparent;
+  padding: 8px 0;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-prompt {
+  color: #ffffff;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  user-select: none;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-input {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  caret-color: #ffffff;
+  cursor: text;
+  padding: 2px 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-input:focus {
+  outline: none;
+  border: none;
+}
+
+.terminal-demo .terminal-container .custom-terminal .terminal-input::placeholder {
+  color: #718096;
+}
+
+/* Custom styling to match the demo exactly */
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal {
+  background-color: #2d3748 !important;
+  color: #ffffff !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header {
+  background-color: #4a5568 !important;
+  border-bottom: 1px solid #718096 !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-title {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-buttons {
+  gap: 8px !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-buttons button {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  border: none !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-buttons button:nth-child(1) {
+  background-color: #ff5f56 !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-buttons button:nth-child(2) {
+  background-color: #ffbd2e !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-header-buttons button:nth-child(3) {
+  background-color: #27c93f !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-content {
+  padding: 16px !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-input-line {
+  margin-top: 8px !important;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-input-line input {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  outline: none !important;
+  width: 100% !important;
+  caret-color: #ffffff !important;
+  cursor: text !important;
+  z-index: 1000 !important;
+}
+
+/* Ensure input line is visible and interactive */
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-input-line {
+  margin-top: 8px !important;
+  position: relative !important;
+  z-index: 1000 !important;
+  background: transparent !important;
+  min-height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Make the terminal input area more prominent */
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-input-line::before {
+  content: '$ ';
+  color: #ffffff !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  margin-right: 8px !important;
+  display: inline-block !important;
+}
+
+/* Make sure the terminal content area allows input */
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-content {
+  padding: 16px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Ensure the actual input field is visible and interactive */
+.terminal-demo .terminal-container .react-terminal-ui input[type="text"],
+.terminal-demo .terminal-container .react-terminal-ui input:not([placeholder="Terminal Hidden Input"]) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  left: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  outline: none !important;
+  caret-color: #ffffff !important;
+  cursor: text !important;
+  z-index: 1000 !important;
+  padding: 4px 0 !important;
+  margin: 0 !important;
+}
+
+/* Hide only the hidden placeholder input */
+.terminal-demo .terminal-container .react-terminal-ui input[placeholder="Terminal Hidden Input"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.terminal-hidden-input {
+  display: none;
+}
+
+.terminal-demo .terminal-container .react-terminal-ui .react-terminal__terminal-output {
+  color: #e2e8f0 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Large Desktop (1200px and above) */
+@media screen and (min-width: 1200px) {
+  .hero-content {
+    gap: 40px;
+  }
+
+  .intro {
+    margin-left: 100px;
+  }
+
+  .terminal-demo {
+    margin-left: 250px;
+  }
+}
+
+/* Desktop (1024px to 1199px) */
+@media screen and (max-width: 1199px) and (min-width: 1024px) {
+  .hero-content {
+    gap: 30px;
+  }
+
+  .intro {
+    margin-left: 60px;
+  }
+
+  .terminal-demo {
+    margin-left: 150px;
+    width: 550px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+/* Tablet Landscape (768px to 1023px) */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .navbar {
+    height: 70px;
+    padding: 0 15px;
+  }
+
+  .logo {
+    font-size: 32px;
+    margin-left: 20px;
+    width: 40vw;
+  }
+
+  .navitems {
+    width: 60vw;
+    gap: 20px;
+  }
+
+  .navitems a {
+    font-size: 16px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    width: 90vw;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .intro {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .intro h6 {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 18px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .specs {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .text-rotate {
+    font-size: 32px;
+    height: 45px;
+    margin: 0 10px;
+    width: 240px;
+  }
+
+  .terminal-demo {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+    width: 90vw;
+    max-width: 600px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+  }
+
+  .terminal-demo p {
+    font-size: 16px;
+    padding: 0 20px;
+  }
+}
+
+/* Tablet Portrait (600px to 767px) */
+@media screen and (max-width: 767px) and (min-width: 600px) {
+  .navbar {
+    height: 65px;
+    padding: 0 15px;
+  }
+
+  .logo {
+    font-size: 28px;
+    margin-left: 15px;
+    width: 45vw;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navitems {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 80px;
+    gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navitems.mobile-open {
+    right: 0;
+  }
+
+  .navitems a {
+    font-size: 18px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .line {
+    width: 40px;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 30px;
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    width: 95vw;
+    height: auto;
+    min-height: 350px;
+  }
+
+  .intro {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .intro h6 {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 16px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .specs {
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+
+  .text-rotate {
+    font-size: 24px;
+    height: 40px;
+    margin: 0 8px;
+    width: 200px;
+  }
+
+  .terminal-demo {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+    width: 95vw;
+    max-width: 500px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 100%;
+    max-width: 450px;
+    height: 350px;
+  }
+
+  .terminal-demo p {
+    font-size: 14px;
+    padding: 0 15px;
+  }
+}
+
+/* Mobile Large (480px to 599px) */
+@media screen and (max-width: 599px) and (min-width: 480px) {
+  .navbar {
+    height: 60px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 24px;
+    margin-left: 10px;
+    width: 50vw;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navitems {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 80px;
+    gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navitems.mobile-open {
+    right: 0;
+  }
+
+  .navitems a {
+    font-size: 16px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .line {
+    width: 40px;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    gap: 25px;
+    margin-top: 20px;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    width: 98vw;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .intro {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .intro h6 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 14px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .specs {
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .text-rotate {
+    font-size: 20px;
+    height: 35px;
+    margin: 0 6px;
+    width: 180px;
+  }
+
+  .terminal-demo {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+    width: 98vw;
+    max-width: 450px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+  }
+
+  .terminal-demo p {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+}
+
+/* Mobile Small (320px to 479px) */
+@media screen and (max-width: 479px) and (min-width: 320px) {
+  .navbar {
+    height: 55px;
+    padding: 0 8px;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-left: 8px;
+    width: 55vw;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navitems {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 80px;
+    gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navitems.mobile-open {
+    right: 0;
+  }
+
+  .navitems a {
+    font-size: 14px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .line {
+    width: 40px;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 15px;
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    width: 100vw;
+    height: auto;
+    min-height: 250px;
+  }
+
+  .intro {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .intro h6 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 13px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .specs {
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .text-rotate {
+    font-size: 18px;
+    height: 30px;
+    margin: 0 5px;
+    padding: 0 8px;
+    width: 160px;
+  }
+
+  .terminal-demo {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+    width: 100vw;
+    max-width: 400px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+  }
+
+  .terminal-demo p {
+    font-size: 12px;
+    padding: 0 8px;
+  }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media screen and (max-width: 319px) {
+  .navbar {
+    height: 50px;
+    padding: 0 5px;
+  }
+
+  .logo {
+    font-size: 18px;
+    margin-left: 5px;
+    width: 60vw;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .navitems {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 80px;
+    gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navitems.mobile-open {
+    right: 0;
+  }
+
+  .navitems a {
+    font-size: 12px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .line {
+    width: 40px;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10px;
+    gap: 15px;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    width: 100vw;
+    height: auto;
+    min-height: 200px;
+  }
+
+  .intro {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 5px;
+  }
+
+  .intro h6 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 12px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .specs {
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .text-rotate {
+    font-size: 16px;
+    height: 28px;
+    margin: 0 4px;
+    padding: 0 6px;
+    width: 140px;
+  }
+
+  .terminal-demo {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+    width: 100vw;
+    max-width: 350px;
+  }
+
+  .terminal-demo .p-terminal {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+  }
+
+  .terminal-demo p {
+    font-size: 11px;
+    padding: 0 5px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .navitems a {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px;
+  }
+
+  .mobile-menu-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px;
+  }
+
+  .text-rotate {
+    min-height: 44px;
+    padding: 10px;
+  }
+}
+
+/* Smooth scrolling for all devices */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Prevent horizontal scrolling on mobile */
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Better text rendering on mobile */
+@media screen and (max-width: 767px) {
+  .main {
+    background-size: 100% 100%;
+    background-attachment: scroll;
+  }
+
+  .intro h6,
+  .intro p,
+  .navitems a {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .navbar {
+    height: 50px;
+  }
+
+  .hero-content {
+    padding-top: 10px;
+    gap: 15px;
+  }
+
+  .intro h6 {
+    font-size: 18px;
+  }
+
+  .intro p {
+    font-size: 12px;
+  }
+
+  .text-rotate {
+    font-size: 16px;
+    height: 25px;
+  }
+
+  .terminal-demo {
+    margin-top: 20px;
+  }
+
+  .terminal-demo .p-terminal {
+    height: 200px;
+  }
+
+  /* Adjust mobile menu for landscape */
+  .navitems {
+    padding-top: 60px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .main {
+    background-size: 100% 100%;
+  }
+}
+
+/* Print styles */
+@media print {
+
+  .navbar,
+  .silk-canvas,
+  .terminal-demo {
+    display: none;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .intro {
+    margin-left: 0;
+    text-align: left;
+    color: #000;
+  }
+
+  .text-rotate {
+    background-color: #f0f0f0;
+    color: #000;
+  }
 }
